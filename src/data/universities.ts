@@ -20,12 +20,17 @@ export interface University {
   image?: string;
   description: string;
   statistics?: {
-    undergraduateStudents: number;
-    mastersStudents: number;
-    phdStudents: number;
-    undergraduatePrograms: number;
-    mastersPrograms: number;
-    phdPrograms: number;
+    // Haramaya format
+    undergraduateStudents?: number;
+    mastersStudents?: number;
+    phdStudents?: number;
+    undergraduatePrograms?: number;
+    mastersPrograms?: number;
+    phdPrograms?: number;
+    // Gondar format
+    staffs?: number;
+    postgraduateStudents?: number;
+    postgraduatePrograms?: number;
   };
 }
 
@@ -281,6 +286,13 @@ export const universities: University[] = [
       phone: "+251-58-114-0188",
       email: "info@uog.edu.et",
       address: "Gondar, Amhara Region, Ethiopia",
+    },
+    statistics: {
+      staffs: 397,
+      undergraduateStudents: 6123,
+      postgraduateStudents: 1297,
+      undergraduatePrograms: 18,
+      postgraduatePrograms: 39,
     },
   },
   {

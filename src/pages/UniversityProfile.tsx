@@ -18,6 +18,7 @@ import {
   Award,
   BookOpen,
   BookCheck,
+  UserCircle,
 } from "lucide-react";
 import { getUniversityById } from "@/data/universities";
 import universityPlaceholder from "@/assets/university-placeholder.jpg";
@@ -129,49 +130,117 @@ const UniversityProfile = () => {
             <Card className="p-8 shadow-[var(--shadow-card)]">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
                 <Users className="h-6 w-6 text-primary" />
-                University Statistics
+                {university.name} Statistics
               </h2>
               <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-4">Student Enrollment</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <DetailedStatCard 
-                      label="Undergraduate Students" 
-                      targetNumber={university.statistics.undergraduateStudents} 
-                      icon={User}
-                    />
-                    <DetailedStatCard 
-                      label="Masters Students" 
-                      targetNumber={university.statistics.mastersStudents} 
-                      icon={GraduationCap}
-                    />
-                    <DetailedStatCard 
-                      label="PhD Students" 
-                      targetNumber={university.statistics.phdStudents} 
-                      icon={Award}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-4">Academic Programs</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <DetailedStatCard 
-                      label="Undergraduate Programs" 
-                      targetNumber={university.statistics.undergraduatePrograms} 
-                      icon={BookOpen}
-                    />
-                    <DetailedStatCard 
-                      label="Masters Programs" 
-                      targetNumber={university.statistics.mastersPrograms} 
-                      icon={BookCheck}
-                    />
-                    <DetailedStatCard 
-                      label="PhD Programs" 
-                      targetNumber={university.statistics.phdPrograms} 
-                      icon={Award}
-                    />
-                  </div>
-                </div>
+                {/* Gondar Format - Staffs, Undergraduate/Postgraduate Students and Programs */}
+                {university.statistics.staffs !== undefined && (
+                  <>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-4">University Overview</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        {university.statistics.staffs !== undefined && (
+                          <DetailedStatCard 
+                            label="Staffs" 
+                            targetNumber={university.statistics.staffs} 
+                            icon={UserCircle}
+                          />
+                        )}
+                        {university.statistics.undergraduateStudents !== undefined && (
+                          <DetailedStatCard 
+                            label="Undergraduate Students" 
+                            targetNumber={university.statistics.undergraduateStudents} 
+                            icon={User}
+                          />
+                        )}
+                        {university.statistics.postgraduateStudents !== undefined && (
+                          <DetailedStatCard 
+                            label="Postgraduate Students" 
+                            targetNumber={university.statistics.postgraduateStudents} 
+                            icon={GraduationCap}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-4">Academic Programs</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {university.statistics.undergraduatePrograms !== undefined && (
+                          <DetailedStatCard 
+                            label="Undergraduate Programs" 
+                            targetNumber={university.statistics.undergraduatePrograms} 
+                            icon={BookOpen}
+                          />
+                        )}
+                        {university.statistics.postgraduatePrograms !== undefined && (
+                          <DetailedStatCard 
+                            label="Postgraduate Programs" 
+                            targetNumber={university.statistics.postgraduatePrograms} 
+                            icon={BookCheck}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+                
+                {/* Haramaya Format - Undergraduate/Masters/PhD Students and Programs */}
+                {university.statistics.mastersStudents !== undefined && (
+                  <>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-4">Student Enrollment</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        {university.statistics.undergraduateStudents !== undefined && (
+                          <DetailedStatCard 
+                            label="Undergraduate Students" 
+                            targetNumber={university.statistics.undergraduateStudents} 
+                            icon={User}
+                          />
+                        )}
+                        {university.statistics.mastersStudents !== undefined && (
+                          <DetailedStatCard 
+                            label="Masters Students" 
+                            targetNumber={university.statistics.mastersStudents} 
+                            icon={GraduationCap}
+                          />
+                        )}
+                        {university.statistics.phdStudents !== undefined && (
+                          <DetailedStatCard 
+                            label="PhD Students" 
+                            targetNumber={university.statistics.phdStudents} 
+                            icon={Award}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground mb-4">Academic Programs</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {university.statistics.undergraduatePrograms !== undefined && (
+                          <DetailedStatCard 
+                            label="Undergraduate Programs" 
+                            targetNumber={university.statistics.undergraduatePrograms} 
+                            icon={BookOpen}
+                          />
+                        )}
+                        {university.statistics.mastersPrograms !== undefined && (
+                          <DetailedStatCard 
+                            label="Masters Programs" 
+                            targetNumber={university.statistics.mastersPrograms} 
+                            icon={BookCheck}
+                          />
+                        )}
+                        {university.statistics.phdPrograms !== undefined && (
+                          <DetailedStatCard 
+                            label="PhD Programs" 
+                            targetNumber={university.statistics.phdPrograms} 
+                            icon={Award}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </Card>
           )}
