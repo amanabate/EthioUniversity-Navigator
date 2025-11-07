@@ -14,9 +14,14 @@ import {
   GraduationCap,
   Users,
   ArrowLeft,
+  User,
+  Award,
+  BookOpen,
+  BookCheck,
 } from "lucide-react";
 import { getUniversityById } from "@/data/universities";
 import universityPlaceholder from "@/assets/university-placeholder.jpg";
+import DetailedStatCard from "@/components/DetailedStatCard";
 
 const UniversityProfile = () => {
   const { id } = useParams<{ id: string }>();
@@ -118,6 +123,58 @@ const UniversityProfile = () => {
               </div>
             </div>
           </Card>
+
+          {/* Statistics Section - Only show if statistics exist */}
+          {university.statistics && (
+            <Card className="p-8 shadow-[var(--shadow-card)]">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Users className="h-6 w-6 text-primary" />
+                University Statistics
+              </h2>
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">Student Enrollment</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <DetailedStatCard 
+                      label="Undergraduate Students" 
+                      targetNumber={university.statistics.undergraduateStudents} 
+                      icon={User}
+                    />
+                    <DetailedStatCard 
+                      label="Masters Students" 
+                      targetNumber={university.statistics.mastersStudents} 
+                      icon={GraduationCap}
+                    />
+                    <DetailedStatCard 
+                      label="PhD Students" 
+                      targetNumber={university.statistics.phdStudents} 
+                      icon={Award}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">Academic Programs</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <DetailedStatCard 
+                      label="Undergraduate Programs" 
+                      targetNumber={university.statistics.undergraduatePrograms} 
+                      icon={BookOpen}
+                    />
+                    <DetailedStatCard 
+                      label="Masters Programs" 
+                      targetNumber={university.statistics.mastersPrograms} 
+                      icon={BookCheck}
+                    />
+                    <DetailedStatCard 
+                      label="PhD Programs" 
+                      targetNumber={university.statistics.phdPrograms} 
+                      icon={Award}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Academic Programs */}
           <Card className="p-8 shadow-[var(--shadow-card)]">

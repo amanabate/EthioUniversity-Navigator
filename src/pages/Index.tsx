@@ -6,7 +6,7 @@ import UniversityCard from "@/components/UniversityCard";
 import StatCard from "@/components/StatCard";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Building2, Users, BookOpen, ArrowRight } from "lucide-react";
-import { universities, getTotalPrograms } from "@/data/universities";
+import { universities, getTotalPrograms, getTotalUniversities, getTotalProgramsCount, getEstimatedTotalStudents, getFreeAccessPercentage, getTotalProgramsNumeric, getEstimatedTotalStudentsNumeric, getFreeAccessNumeric } from "@/data/universities";
 import heroImage from "@/assets/hero-university.jpg";
 
 const Index = () => {
@@ -21,7 +21,26 @@ const Index = () => {
     return matchesSearch && matchesType && matchesLocation;
   });
 
-  const totalPrograms = universities.reduce((total, uni) => total + getTotalPrograms(uni), 0);
+  // Statistics are now automatically calculated
+  const totalUniversities = getTotalUniversities();
+  const totalPrograms = getTotalProgramsCount();
+  const estimatedStudents = getEstimatedTotalStudents();
+  const freeAccess = getFreeAccessPercentage();
+  
+  // Numeric values for animations
+  const totalProgramsNumeric = getTotalProgramsNumeric();
+  const estimatedStudentsNumeric = getEstimatedTotalStudentsNumeric();
+  const freeAccessNumeric = getFreeAccessNumeric();
+  
+  // Format function for students (converts to K+ format)
+  const formatStudents = (num: number): string => {
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M+`;
+    } else if (num >= 1000) {
+      return `${Math.round(num / 1000)}K+`;
+    }
+    return `${num}+`;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -78,10 +97,10 @@ const Index = () => {
       <section className="py-12 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            <StatCard value={universities.length.toString()} label="Universities" icon={<Building2 className="h-8 w-8" />} />
-            <StatCard value={totalPrograms.toString() + "+"} label="Programs" icon={<BookOpen className="h-8 w-8" />} />
-            <StatCard value="50K+" label="Students" icon={<Users className="h-8 w-8" />} />
-            <StatCard value="100%" label="Free Access" icon={<GraduationCap className="h-8 w-8" />} />
+            <StatCard value={totalUniversities.toString()} label="Universities" icon={<Building2 className="h-8 w-8" />} animate={true} targetNumber={totalUniversities} />
+            <StatCard value={totalPrograms.toString() + "+"} label="Programs" icon={<BookOpen className="h-8 w-8" />} animate={true} targetNumber={totalProgramsNumeric} valueSuffix="+" />
+            <StatCard value={estimatedStudents} label="Students" icon={<Users className="h-8 w-8" />} animate={true} targetNumber={estimatedStudentsNumeric} formatValue={formatStudents} />
+            <StatCard value={freeAccess} label="Free Access" icon={<GraduationCap className="h-8 w-8" />} animate={true} targetNumber={freeAccessNumeric} valueSuffix="%" />
           </div>
         </div>
       </section>

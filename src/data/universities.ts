@@ -19,6 +19,14 @@ export interface University {
   };
   image?: string;
   description: string;
+  statistics?: {
+    undergraduateStudents: number;
+    mastersStudents: number;
+    phdStudents: number;
+    undergraduatePrograms: number;
+    mastersPrograms: number;
+    phdPrograms: number;
+  };
 }
 
 export interface Faculty {
@@ -275,6 +283,71 @@ export const universities: University[] = [
       address: "Gondar, Amhara Region, Ethiopia",
     },
   },
+  {
+    id: "haru",
+    name: "Haramaya University",
+    location: "Haramaya",
+    region: "Oromia",
+    type: "Public",
+    yearEstablished: 1954,
+    website: "https://www.haramaya.edu.et",
+    description: "One of Ethiopia's oldest universities, renowned for its excellence in agricultural sciences and research. Formerly known as Alemaya University.",
+    president: {
+      name: "Prof. Ahmedin Mohammed",
+    },
+    faculties: [
+      {
+        name: "College of Agriculture and Environmental Sciences",
+        departments: ["Agronomy", "Horticulture", "Plant Sciences", "Soil Science", "Agricultural Economics"],
+        programs: {
+          bachelors: ["BSc in Agronomy", "BSc in Horticulture", "BSc in Plant Sciences", "BSc in Agricultural Economics"],
+          masters: ["MSc in Agronomy", "MSc in Horticulture", "MSc in Plant Breeding", "MSc in Agricultural Economics"],
+          phd: ["PhD in Agronomy", "PhD in Plant Sciences", "PhD in Agricultural Economics"],
+        },
+      },
+      {
+        name: "College of Natural and Computational Sciences",
+        departments: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Statistics"],
+        programs: {
+          bachelors: ["BSc in Mathematics", "BSc in Physics", "BSc in Chemistry", "BSc in Biology", "BSc in Computer Science"],
+          masters: ["MSc in Mathematics", "MSc in Physics", "MSc in Chemistry", "MSc in Computer Science"],
+          phd: ["PhD in Mathematics", "PhD in Chemistry"],
+        },
+      },
+      {
+        name: "College of Business and Economics",
+        departments: ["Accounting", "Management", "Economics", "Marketing"],
+        programs: {
+          bachelors: ["BA in Accounting", "BA in Management", "BA in Economics", "BA in Marketing"],
+          masters: ["MBA", "MSc in Economics", "MSc in Accounting"],
+          phd: ["PhD in Economics"],
+        },
+      },
+      {
+        name: "College of Health and Medical Sciences",
+        departments: ["Medicine", "Nursing", "Public Health", "Pharmacy"],
+        programs: {
+          bachelors: ["MD", "BSc in Nursing", "BSc in Pharmacy"],
+          masters: ["MSc in Public Health", "MSc in Clinical Medicine"],
+          phd: [],
+        },
+      },
+    ],
+    facilities: ["Agricultural Research Center", "Modern Library", "Teaching Hospital", "Computer Labs", "Student Dormitories", "Sports Complex", "Research Farms"],
+    contact: {
+      phone: "+251-25-553-0000",
+      email: "info@haramaya.edu.et",
+      address: "Haramaya, Oromia Region, Ethiopia",
+    },
+    statistics: {
+      undergraduateStudents: 19503,
+      mastersStudents: 2189,
+      phdStudents: 500,
+      undergraduatePrograms: 72,
+      mastersPrograms: 137,
+      phdPrograms: 46,
+    },
+  },
 ];
 
 export const getUniversityById = (id: string): University | undefined => {
@@ -290,4 +363,47 @@ export const getTotalPrograms = (university: University): number => {
       faculty.programs.phd.length
     );
   }, 0);
+};
+
+export const getTotalUniversities = (): number => {
+  return universities.length;
+};
+
+export const getTotalProgramsCount = (): number => {
+  return universities.reduce((total, uni) => total + getTotalPrograms(uni), 0);
+};
+
+export const getEstimatedTotalStudents = (): string => {
+  // Estimate: Average of 200-300 students per program across all universities
+  // This is a conservative estimate for Ethiopian universities
+  const totalPrograms = getTotalProgramsCount();
+  const avgStudentsPerProgram = 250; // Average students per program
+  const estimatedStudents = totalPrograms * avgStudentsPerProgram;
+  
+  // Format the number (e.g., 50000 -> "50K+", 125000 -> "125K+")
+  if (estimatedStudents >= 1000000) {
+    return `${(estimatedStudents / 1000000).toFixed(1)}M+`;
+  } else if (estimatedStudents >= 1000) {
+    return `${Math.round(estimatedStudents / 1000)}K+`;
+  }
+  return `${estimatedStudents}+`;
+};
+
+export const getFreeAccessPercentage = (): string => {
+  // Always 100% free access
+  return "100%";
+};
+
+export const getTotalProgramsNumeric = (): number => {
+  return getTotalProgramsCount();
+};
+
+export const getEstimatedTotalStudentsNumeric = (): number => {
+  const totalPrograms = getTotalProgramsCount();
+  const avgStudentsPerProgram = 250;
+  return totalPrograms * avgStudentsPerProgram;
+};
+
+export const getFreeAccessNumeric = (): number => {
+  return 100;
 };
