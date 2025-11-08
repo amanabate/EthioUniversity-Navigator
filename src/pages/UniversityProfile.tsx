@@ -24,6 +24,35 @@ import { getUniversityById } from "@/data/universities";
 import universityPlaceholder from "@/assets/university-placeholder.jpg";
 import DetailedStatCard from "@/components/DetailedStatCard";
 
+// Import university images
+import aauImage from "@/assets/image_University/AAU/AAU.jpg";
+import aauLogo from "@/assets/image_University/AAU/logoaau.png";
+import bduImage from "@/assets/image_University/BDU/BahirDargate.png";
+import bduLogo from "@/assets/image_University/BDU/bahirdar.jpg";
+import hruImage from "@/assets/image_University/HRU/HaramayaGate.jpg";
+import hruLogo from "@/assets/image_University/HRU/haramaylogo.png";
+import huImage from "@/assets/image_University/HU/Hawassa_University_main_gate.jpg";
+import huLogo from "@/assets/image_University/HU/hawasa logo.png";
+import jmuImage from "@/assets/image_University/JMU/jimmaa.webp";
+import jmuLogo from "@/assets/image_University/JMU/jimmaaLogo.jpg";
+
+// Create mapping for images and logos
+const universityImages: Record<string, string> = {
+  aau: aauImage,
+  bu: bduImage,
+  haru: hruImage,
+  hu: huImage,
+  ju: jmuImage,
+};
+
+const universityLogos: Record<string, string> = {
+  aau: aauLogo,
+  bu: bduLogo,
+  haru: hruLogo,
+  hu: huLogo,
+  ju: jmuLogo,
+};
+
 const UniversityProfile = () => {
   const { id } = useParams<{ id: string }>();
   const university = getUniversityById(id || "");
@@ -51,22 +80,30 @@ const UniversityProfile = () => {
         <div 
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: `url(${universityPlaceholder})`,
+            backgroundImage: `url(${universityImages[university.id] || universityPlaceholder})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
         <div className="container mx-auto px-4 h-full flex items-end pb-8 relative z-10">
-          <div>
-            <Link to="/universities">
-              <Button variant="outline" className="mb-4 bg-background/90 hover:bg-background border-0">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Universities
-              </Button>
-            </Link>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
-              {university.name}
-            </h1>
+          <div className="flex items-end gap-4 w-full">
+            {universityLogos[university.id] && (
+              <img 
+                src={universityLogos[university.id]} 
+                alt={`${university.name} Logo`}
+                className="h-24 w-24 md:h-32 md:w-32 object-contain bg-background/90 rounded-lg p-2 shadow-lg"
+              />
+            )}
+            <div className="flex-1">
+              <Link to="/universities">
+                <Button variant="outline" className="mb-4 bg-background/90 hover:bg-background border-0">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Universities
+                </Button>
+              </Link>
+              <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
+                {university.name}
+              </h1>
             <div className="flex flex-wrap gap-3 items-center text-primary-foreground/90">
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
@@ -75,6 +112,7 @@ const UniversityProfile = () => {
               <Badge className="bg-background/90 text-foreground hover:bg-background">
                 {university.type}
               </Badge>
+            </div>
             </div>
           </div>
         </div>
@@ -112,6 +150,19 @@ const UniversityProfile = () => {
                 </div>
               </div>
               <div className="space-y-4">
+                {universityImages[university.id] && (
+                  <div className="mb-4">
+                    <h3 className="font-semibold mb-2 flex items-center gap-2">
+                      <Building2 className="h-5 w-5 text-primary" />
+                      Main Gate
+                    </h3>
+                    <img 
+                      src={universityImages[university.id]} 
+                      alt={`${university.name} Main Gate`}
+                      className="w-full rounded-lg shadow-md object-cover h-48"
+                    />
+                  </div>
+                )}
                 <div>
                   <h3 className="font-semibold mb-2 flex items-center gap-2">
                     <Users className="h-5 w-5 text-primary" />
@@ -133,6 +184,8 @@ const UniversityProfile = () => {
                 {university.name} Statistics
               </h2>
               <div className="space-y-8">
+
+                
                 {/* Gondar Format - Staffs, Undergraduate/Postgraduate Students and Programs */}
                 {university.statistics.staffs !== undefined && (
                   <>
@@ -183,6 +236,8 @@ const UniversityProfile = () => {
                     </div>
                   </>
                 )}
+
+
                 
                 {/* Haramaya Format - Undergraduate/Masters/PhD Students and Programs */}
                 {university.statistics.mastersStudents !== undefined && (

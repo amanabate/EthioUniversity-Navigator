@@ -9,6 +9,22 @@ import { GraduationCap, Building2, Users, BookOpen, ArrowRight } from "lucide-re
 import { universities, getTotalPrograms, getTotalUniversities, getTotalProgramsCount, getEstimatedTotalStudents, getFreeAccessPercentage, getTotalProgramsNumeric, getEstimatedTotalStudentsNumeric, getFreeAccessNumeric } from "@/data/universities";
 import heroImage from "@/assets/hero-university.jpg";
 
+// Import university images
+import aauImage from "@/assets/image_University/AAU/AAU.jpg";
+import bduImage from "@/assets/image_University/BDU/BahirDargate.png";
+import hruImage from "@/assets/image_University/HRU/HaramayaGate.jpg";
+import huImage from "@/assets/image_University/HU/Hawassa_University_main_gate.jpg";
+import jmuImage from "@/assets/image_University/JMU/jimmaa.webp";
+
+// Create mapping for images
+const universityImages: Record<string, string> = {
+  aau: aauImage,
+  bu: bduImage,
+  haru: hruImage,
+  hu: huImage,
+  ju: jmuImage,
+};
+
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -127,6 +143,7 @@ const Index = () => {
                   location={uni.location}
                   type={uni.type}
                   yearEstablished={uni.yearEstablished}
+                  image={universityImages[uni.id]}
                   programs={getTotalPrograms(uni)}
                 />
               ))}

@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import universityPlaceholder from "@/assets/university-placeholder.jpg";
 
 interface UniversityCardProps {
   id: string;
@@ -26,11 +25,17 @@ const UniversityCard = ({
   return (
     <Card className="overflow-hidden hover:shadow-[var(--shadow-hover)] transition-all duration-300 group">
       <div className="relative h-48 overflow-hidden">
-        <img
-          src={image || universityPlaceholder}
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 flex items-center justify-center">
+            <div className="text-4xl font-bold text-primary/30">{name.charAt(0)}</div>
+          </div>
+        )}
         <div className="absolute top-4 right-4">
           <span className="px-4 py-1.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full">
             {type}

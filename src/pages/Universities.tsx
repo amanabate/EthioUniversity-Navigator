@@ -4,6 +4,22 @@ import SearchBar from "@/components/SearchBar";
 import UniversityCard from "@/components/UniversityCard";
 import { universities, getTotalPrograms } from "@/data/universities";
 
+// Import university images
+import aauImage from "@/assets/image_University/AAU/AAU.jpg";
+import bduImage from "@/assets/image_University/BDU/BahirDargate.png";
+import hruImage from "@/assets/image_University/HRU/HaramayaGate.jpg";
+import huImage from "@/assets/image_University/HU/Hawassa_University_main_gate.jpg";
+import jmuImage from "@/assets/image_University/JMU/jimmaa.webp";
+
+// Create mapping for images
+const universityImages: Record<string, string> = {
+  aau: aauImage,
+  bu: bduImage,
+  haru: hruImage,
+  hu: huImage,
+  ju: jmuImage,
+};
+
 const Universities = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -59,6 +75,7 @@ const Universities = () => {
                   location={uni.location}
                   type={uni.type}
                   yearEstablished={uni.yearEstablished}
+                  image={universityImages[uni.id]}
                   programs={getTotalPrograms(uni)}
                 />
               ))}

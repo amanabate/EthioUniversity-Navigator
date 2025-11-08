@@ -18,6 +18,7 @@ export interface University {
     address: string;
   };
   image?: string;
+  logo?: string;
   description: string;
   statistics?: {
     // Haramaya format
@@ -53,6 +54,8 @@ export const universities: University[] = [
     type: "Public",
     yearEstablished: 1950,
     website: "https://www.aau.edu.et",
+    image: "/src/assets/image_University/AAU/AAU.jpg",
+    logo: "/src/assets/image_University/AAU/logoaau.png",
     description: "The oldest and most prestigious university in Ethiopia, offering comprehensive programs across all fields of study.",
     president: {
       name: "Prof. Tassew Woldehanna",
@@ -101,6 +104,8 @@ export const universities: University[] = [
     type: "Public",
     yearEstablished: 2000,
     website: "https://www.bdu.edu.et",
+    image: "/src/assets/image_University/BDU/BahirDargate.png",
+    logo: "/src/assets/image_University/BDU/bahirdar.jpg",
     description: "A leading university located on the shores of Lake Tana, known for its beautiful campus and quality education.",
     president: {
       name: "Prof. Baylie Damtie",
@@ -179,6 +184,8 @@ export const universities: University[] = [
     type: "Public",
     yearEstablished: 1999,
     website: "https://www.ju.edu.et",
+    image: "/src/assets/image_University/JMU/jimmaa.webp",
+    logo: "/src/assets/image_University/JMU/jimmaaLogo.jpg",
     description: "Known for its strong health sciences programs and beautiful green campus environment.",
     president: {
       name: "Prof. Jemal Abafita",
@@ -218,6 +225,8 @@ export const universities: University[] = [
     type: "Public",
     yearEstablished: 2000,
     website: "https://www.hu.edu.et",
+    image: "/src/assets/image_University/HU/Hawassa_University_main_gate.jpg",
+    logo: "/src/assets/image_University/HU/hawasa logo.png",
     description: "A vibrant university located near Lake Hawassa, offering diverse programs and research opportunities.",
     president: {
       name: "Prof. Aklilu Dalelo",
@@ -303,6 +312,8 @@ export const universities: University[] = [
     type: "Public",
     yearEstablished: 1954,
     website: "https://www.haramaya.edu.et",
+    image: "/src/assets/image_University/HRU/HaramayaGate.jpg",
+    logo: "/src/assets/image_University/HRU/haramaylogo.png",
     description: "One of Ethiopia's oldest universities, renowned for its excellence in agricultural sciences and research. Formerly known as Alemaya University.",
     president: {
       name: "Prof. Ahmedin Mohammed",
