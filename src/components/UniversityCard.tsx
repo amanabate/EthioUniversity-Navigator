@@ -21,6 +21,8 @@ const UniversityCard = ({
   yearEstablished,
   image,
   programs = 0,
+  // Default to 0 if not provided
+  
 }: UniversityCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-[var(--shadow-hover)] transition-all duration-300 group">
