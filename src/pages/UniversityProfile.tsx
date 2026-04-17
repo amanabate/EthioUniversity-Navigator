@@ -76,7 +76,7 @@ const UniversityProfile = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <div className="relative h-80 bg-gradient-to-r from-secondary to-primary overflow-hidden">
+      <div className="relative h-80 bg-gradient-primary overflow-hidden">
         <div 
           className="absolute inset-0 opacity-20"
           style={{
@@ -121,7 +121,7 @@ const UniversityProfile = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Overview Section */}
-          <Card className="p-8 shadow-[var(--shadow-card)]">
+          <Card className="p-8 shadow-card border-border/60 rounded-2xl">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Building2 className="h-6 w-6 text-primary" />
               Overview
@@ -178,7 +178,7 @@ const UniversityProfile = () => {
 
           {/* Statistics Section - Only show if statistics exist */}
           {university.statistics && (
-            <Card className="p-8 shadow-[var(--shadow-card)]">
+            <Card className="p-8 shadow-card border-border/60 rounded-2xl">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
                 <Users className="h-6 w-6 text-primary" />
                 {university.name} Statistics
@@ -301,7 +301,7 @@ const UniversityProfile = () => {
           )}
 
           {/* Academic Programs */}
-          <Card className="p-8 shadow-[var(--shadow-card)]">
+          <Card className="p-8 shadow-card border-border/60 rounded-2xl">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <GraduationCap className="h-6 w-6 text-primary" />
               Academic Programs
@@ -352,13 +352,13 @@ const UniversityProfile = () => {
           </Card>
 
           {/* Facilities */}
-          <Card className="p-8 shadow-[var(--shadow-card)]">
+          <Card className="p-8 shadow-card border-border/60 rounded-2xl">
             <h2 className="text-2xl font-bold mb-6">Campus & Facilities</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {university.facilities.map((facility, index) => (
                 <div
                   key={index}
-                  className="p-4 rounded-lg bg-gradient-to-br from-primary/5 to-secondary/5 border border-border"
+                  className="p-4 rounded-lg bg-gradient-subtle border border-border"
                 >
                   <p className="font-medium text-foreground">{facility}</p>
                 </div>
@@ -367,7 +367,7 @@ const UniversityProfile = () => {
           </Card>
 
           {/* Contact Information */}
-          <Card className="p-8 shadow-[var(--shadow-card)] bg-gradient-to-br from-primary/5 to-secondary/5">
+          <Card className="p-8 shadow-card border-border/60 rounded-2xl bg-gradient-subtle">
             <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex items-start gap-3">
@@ -396,9 +396,11 @@ const UniversityProfile = () => {
         </div>
       </div>
 
-      <footer className="py-8 border-t border-border">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2025 EthioUniversity Guide. Empowering students with information.</p>
+      <footer className="py-10 border-t border-border/60 bg-muted/30">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; 2025 EthioUniversity Guide. Empowering students with information.
+          </p>
         </div>
       </footer>
     </div>
@@ -406,3 +408,5 @@ const UniversityProfile = () => {
 };
 
 export default UniversityProfile;
+
+

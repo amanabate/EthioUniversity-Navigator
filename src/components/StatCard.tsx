@@ -6,77 +6,82 @@ interface StatCardProps {
   icon?: React.ReactNode;
   animate?: boolean;
   targetNumber?: number;
-  valueSuffix?: string; // For suffixes like "+", "%", "K+", etc.
-  formatValue?: (num: number) => string; // Custom formatter function
+  valueSuffix?: string;
+  formatValue?: (num: number) => string;
 }
 
-const StatCard = ({ value, label, icon, animate = false, targetNumber, valueSuffix, formatValue }: StatCardProps) => {
-  const [count, setCount] = useState(animate ? 1 : 0);
+const StatCard = ({
+  value,
+  label,
+  icon,
+  animate = false,
+  targetNumber,
+  valueSuffix,
+  formatValue,
+}: StatCardProps) => {
+  const [count, setCount] = useState(animate ? 0 : 0);
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (!animate || hasAnimated) return;
 
-    const numericValue = targetNumber || parseInt(value.replace(/\D/g, '')) || 0;
+    const numericValue = targetNumber || parseInt(value.replace(/\D/g, "")) || 0;
     if (numericValue <= 1) {
       setCount(numericValue);
       setHasAnimated(true);
       return;
     }
 
-    // For large numbers, start from a percentage and use larger increments
     const isLargeNumber = numericValue > 1000;
-    const startValue = isLargeNumber ? Math.floor(numericValue * 0.3) : 1;
-    const increment = isLargeNumber ? Math.max(1, Math.floor(numericValue / 100)) : 1;
-    
+    const startValue = isLargeNumber ? Math.floor(numericValue * 0.2) : 0;
+    const increment = isLargeNumber ? Math.max(1, Math.floor(numericValue / 80)) : 1;
+
     setCount(startValue);
 
-    // Small delay before animation starts for better UX
-    let intervalId: NodeJS.Timeout | null = null;
-    
     const startDelay = setTimeout(() => {
-      // Smooth counting animation
-      const duration = 2500; // 2.5 seconds total animation
+      const duration = 2000;
       const steps = Math.ceil((numericValue - startValue) / increment);
-      const stepDuration = duration / steps;
+      const stepDuration = Math.max(10, duration / steps);
+      let current = startValue;
 
-      let currentStep = startValue;
-      intervalId = setInterval(() => {
-        currentStep = Math.min(currentStep + increment, numericValue);
-        setCount(currentStep);
-        
-        if (currentStep >= numericValue) {
-          if (intervalId) clearInterval(intervalId);
+      const id = setInterval(() => {
+        current = Math.min(current + increment, numericValue);
+        setCount(current);
+        if (current >= numericValue) {
+          clearInterval(id);
           setHasAnimated(true);
-          setCount(numericValue); // Ensure final value is exact
+          setCount(numericValue);
         }
       }, stepDuration);
-    }, 300); // 300ms delay before starting
 
-    return () => {
-      clearTimeout(startDelay);
-      if (intervalId) clearInterval(intervalId);
-    };
+      return () => clearInterval(id);
+    }, 200);
+
+    return () => clearTimeout(startDelay);
   }, [animate, value, targetNumber, hasAnimated]);
 
-  // Format the display value
-  const getDisplayValue = () => {
+  const displayValue = (() => {
     if (animate && !hasAnimated) {
-      if (formatValue) {
-        return formatValue(count);
-      }
-      return count.toString() + (valueSuffix || '');
+      return formatValue ? formatValue(count) : count.toString() + (valueSuffix || "");
     }
     return value;
-  };
-
-  const displayValue = getDisplayValue();
+  })();
 
   return (
-    <div className="bg-gradient-to-r from-secondary to-primary text-primary-foreground p-6 rounded-3xl shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] transition-all duration-300 flex flex-col items-center justify-center gap-2 min-h-[140px]">
-      {icon && <div className="text-primary-foreground/90">{icon}</div>}
-      <div className="text-4xl md:text-5xl font-bold transition-all duration-300">{displayValue}</div>
-      <div className="text-base md:text-lg font-medium opacity-90">{label}</div>
+    <div className="relative overflow-hidden bg-gradient-primary text-white rounded-2xl p-6 shadow-card hover:shadow-hover transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-center gap-3 min-h-[148px]">
+      {/* Decorative circle */}
+      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
+      <div className="absolute -bottom-8 -left-4 w-20 h-20 rounded-full bg-white/5 pointer-events-none" />
+
+      {icon && (
+        <div className="relative z-10 text-white/80">{icon}</div>
+      )}
+      <div className="relative z-10 text-4xl md:text-5xl font-extrabold tracking-tight tabular-nums">
+        {displayValue}
+      </div>
+      <div className="relative z-10 text-sm font-semibold uppercase tracking-widest text-white/75">
+        {label}
+      </div>
     </div>
   );
 };

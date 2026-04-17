@@ -35,17 +35,19 @@ const Compare = () => {
       
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          {/* Page header */}
+          <div className="text-center mb-12 space-y-3">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary">Tools</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
               Compare Universities
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Select two universities to compare their programs, facilities, and information side by side
             </p>
           </div>
 
           {/* University Selection */}
-          <Card className="p-8 mb-8 max-w-4xl mx-auto shadow-[var(--shadow-card)]">
+          <Card className="p-8 mb-8 max-w-4xl mx-auto shadow-card border-border/60 rounded-2xl">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="text-sm font-semibold mb-2 block">First University</label>
@@ -56,7 +58,7 @@ const Compare = () => {
                     setUni1(selected || null);
                   }}
                 >
-                  <SelectTrigger className="h-12 rounded-full border-2">
+                  <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue placeholder="Select a university" />
                   </SelectTrigger>
                   <SelectContent>
@@ -78,7 +80,7 @@ const Compare = () => {
                     setUni2(selected || null);
                   }}
                 >
-                  <SelectTrigger className="h-12 rounded-full border-2">
+                  <SelectTrigger className="h-11 rounded-xl border-2">
                     <SelectValue placeholder="Select a university" />
                   </SelectTrigger>
                   <SelectContent>
@@ -94,7 +96,7 @@ const Compare = () => {
 
             {(uni1 || uni2) && (
               <div className="mt-6 flex justify-center">
-                <Button variant="outline" onClick={handleReset}>
+                <Button variant="outline" onClick={handleReset} className="rounded-xl">
                   <RefreshCw className="h-4 w-4" />
                   Reset Comparison
                 </Button>
@@ -105,7 +107,7 @@ const Compare = () => {
           {/* Comparison Table */}
           {uni1 && uni2 && (
             <div className="max-w-6xl mx-auto overflow-x-auto">
-              <Card className="p-6 shadow-[var(--shadow-card)]">
+              <Card className="p-6 shadow-card border-border/60 rounded-2xl">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -237,9 +239,11 @@ const Compare = () => {
         </div>
       </div>
 
-      <footer className="py-8 border-t border-border">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2025 EthioUniversity Guide. Empowering students with information.</p>
+      <footer className="py-10 border-t border-border/60 bg-muted/30">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; 2025 EthioUniversity Guide. Empowering students with information.
+          </p>
         </div>
       </footer>
     </div>
