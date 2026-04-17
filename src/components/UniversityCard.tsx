@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar, ArrowRight } from "lucide-react";
+import { MapPin, Calendar, BookOpen, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface UniversityCardProps {
@@ -21,58 +21,70 @@ const UniversityCard = ({
   yearEstablished,
   image,
   programs = 0,
-  // Default to 0 if not provided
-  
 }: UniversityCardProps) => {
   return (
-    <Card className="overflow-hidden hover:shadow-[var(--shadow-hover)] transition-all duration-300 group">
-      <div className="relative h-48 overflow-hidden">
+    <Card className="group overflow-hidden border border-border/60 bg-card card-hover rounded-2xl">
+      {/* Image */}
+      <div className="relative h-52 overflow-hidden bg-gradient-subtle">
         {image ? (
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 flex items-center justify-center">
-            <div className="text-4xl font-bold text-primary/30">{name.charAt(0)}</div>
+          <div className="w-full h-full flex items-center justify-center bg-gradient-subtle">
+            <span className="text-5xl font-black text-primary/20 select-none">
+              {name.charAt(0)}
+            </span>
           </div>
         )}
-        <div className="absolute top-4 right-4">
-          <span className="px-4 py-1.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground text-xs font-bold rounded-full">
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Type badge */}
+        <div className="absolute top-3 right-3">
+          <span className="badge-pill bg-gradient-primary text-white shadow-sm">
             {type}
           </span>
         </div>
       </div>
-      
+
+      {/* Content */}
       <div className="p-6 space-y-4">
-        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+        <h3 className="text-lg font-bold text-foreground leading-snug group-hover:text-primary transition-colors duration-200 line-clamp-2">
           {name}
         </h3>
-        
+
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
-            <MapPin className="h-4 w-4 text-primary" />
+            <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
             <span>{location}</span>
           </div>
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
-            <Calendar className="h-4 w-4 text-primary" />
-            <span>Established {yearEstablished}</span>
+            <Calendar className="h-3.5 w-3.5 text-primary shrink-0" />
+            <span>Est. {yearEstablished}</span>
           </div>
+          {programs > 0 && (
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+              <BookOpen className="h-3.5 w-3.5 text-primary shrink-0" />
+              <span>
+                <span className="font-semibold text-foreground">{programs}+</span> Programs
+              </span>
+            </div>
+          )}
         </div>
 
-        {programs > 0 && (
-          <p className="text-sm text-muted-foreground">
-            <span className="font-semibold text-primary">{programs}+</span> Programs Available
-          </p>
-        )}
-
-        <Link to={`/university/${id}`}>
-          <Button variant="gradient" className="w-full group/btn">
-            View Details
-            <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-          </Button>
-        </Link>
+        <div className="pt-1">
+          <Link to={`/university/${id}`} tabIndex={-1}>
+            <Button
+              variant="gradient"
+              className="w-full group/btn font-semibold text-sm h-10 rounded-xl"
+            >
+              View Details
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </Card>
   );

@@ -62,16 +62,16 @@ const DetailedStatCard = ({ label, targetNumber, icon: Icon, startFromZero = tru
   };
 
   return (
-    <div className="bg-white dark:bg-card rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-border/50 flex flex-col items-center justify-center gap-3 min-h-[160px]">
+    <div className="bg-card rounded-2xl p-6 shadow-card border border-border/60 hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center gap-3 min-h-[148px]">
       {Icon && (
-        <div className="text-primary opacity-80">
-          <Icon className="h-6 w-6" />
+        <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+          <Icon className="h-5 w-5" />
         </div>
       )}
-      <div className="text-4xl md:text-5xl font-bold text-foreground transition-all duration-300">
+      <div className="text-3xl md:text-4xl font-extrabold text-foreground tabular-nums tracking-tight">
         {formatNumber(count)}
       </div>
-      <div className="text-sm md:text-base font-medium text-muted-foreground text-center">
+      <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground text-center">
         {label}
       </div>
     </div>
